@@ -40,7 +40,7 @@ resource "aws_route53_record" "primary" {
   type    = "A"
 
   alias {
-    name                   = aws_s3_bucket.web.website_endpoint
+    name                   = aws_s3_bucket.web.website_domain
     zone_id                = aws_s3_bucket.web.hosted_zone_id
     evaluate_target_health = false
   }
