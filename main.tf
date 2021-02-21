@@ -13,6 +13,7 @@ resource "aws_s3_bucket" "web" {
     Name = var.project
   }
 }
+
 data "aws_iam_policy_document" "s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
@@ -24,7 +25,6 @@ data "aws_iam_policy_document" "s3_policy" {
     }
   }
 }
-
 
 # Create and configure route 53 zone and record
 resource "aws_route53_zone" "primary" {
@@ -48,9 +48,11 @@ resource "aws_route53_record" "primary" {
 locals {
   s3_origin_id = "myS3Origin"
 }
+
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
 
 }
+
 resource "aws_cloudfront_distribution" "distribution" {
   aliases = [var.domain_name]
 
@@ -107,9 +109,11 @@ resource "aws_acm_certificate" "cert" {
     create_before_destroy = true
   }
 }
+
 resource "aws_acm_certificate_validation" "cert" {
   certificate_arn = aws_acm_certificate.cert.arn
 }
+
 output "s3_bucket_name" {
   value = aws_s3_bucket.web.id
 }
